@@ -1,5 +1,6 @@
 // corgi.js: A corgi that follows your mouse cursor
-// Based on oneko.js (https://github.com/adryd325/oneko.js)
+// Based on oneko.js by adryd (https://github.com/adryd325/oneko.js)
+// Licensed under MIT License
 
 (function corgi() {
   const isReducedMotion =
