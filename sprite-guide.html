@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>corgi.js Sprite Sheet Guide</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 24px;
+  }
+  h1 { color: #f5a623; }
+  h2 { color: #c0c0c0; margin-top: 32px; }
+  .info {
+    background: #16213e;
+    border: 1px solid #334;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .grid-container {
+    display: inline-block;
+    border: 2px solid #f5a623;
+    background: #0f3460;
+  }
+  .grid-row {
+    display: flex;
+  }
+  .cell {
+    width: 96px;
+    height: 96px;
+    border: 1px solid #334;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    text-align: center;
+    position: relative;
+  }
+  .cell .coord {
+    font-size: 9px;
+    color: #888;
+    margin-top: 4px;
+  }
+  .cell .frame-area {
+    width: 32px;
+    height: 32px;
+    border: 1px dashed #556;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .cell.move { background: rgba(100, 200, 255, 0.1); }
+  .cell.idle-anim { background: rgba(255, 200, 100, 0.1); }
+  .cell.corgi-special { background: rgba(100, 255, 150, 0.15); }
+  .cell.empty { background: rgba(0,0,0,0.2); opacity: 0.4; }
+
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .legend-swatch {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #555;
+  }
+  .legend-swatch.move { background: rgba(100, 200, 255, 0.3); }
+  .legend-swatch.idle-anim { background: rgba(255, 200, 100, 0.3); }
+  .legend-swatch.corgi-special { background: rgba(100, 255, 150, 0.35); }
+
+  table {
+    border-collapse: collapse;
+    margin: 16px 0;
+  }
+  th, td {
+    border: 1px solid #334;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 13px;
+  }
+  th { background: #16213e; color: #f5a623; }
+  td { background: #0f3460; }
+  code {
+    background: #16213e;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<h1>corgi.js Sprite Sheet Guide</h1>
+
+<div class="info">
+  <strong>File:</strong> <code>corgi.png</code> (PNG recommended, GIF also works)<br>
+  <strong>Total size:</strong> 256px x 160px (8 columns x 5 rows)<br>
+  <strong>Frame size:</strong> 32px x 32px each<br>
+  <strong>Total frames:</strong> 40 slots (34 used, 6 empty)<br>
+  <strong>Background:</strong> Transparent
+</div>
+
+<h2>Grid Layout</h2>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch move"></div> Movement (8 directions)</div>
+  <div class="legend-item"><div class="legend-swatch idle-anim"></div> Idle animations</div>
+  <div class="legend-item"><div class="legend-swatch corgi-special"></div> Corgi special</div>
+</div>
+
+<div class="grid-container">
+  <!-- Row 0 -->
+  <div class="grid-row">
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>NW-1</div>
+      <div class="coord">[0, 0]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>NW-2</div>
+      <div class="coord">[1, 0]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">😴</div>
+      <div>sleep-1</div>
+      <div class="coord">[2, 0]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">😴</div>
+      <div>sleep-2</div>
+      <div class="coord">[3, 0]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrW-1</div>
+      <div class="coord">[4, 0]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrW-2</div>
+      <div class="coord">[5, 0]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🐾</div>
+      <div>scrSelf-1</div>
+      <div class="coord">[6, 0]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🐾</div>
+      <div>scrSelf-2</div>
+      <div class="coord">[7, 0]</div>
+    </div>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="grid-row">
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrN-1</div>
+      <div class="coord">[0, 1]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrN-2</div>
+      <div class="coord">[1, 1]</div>
+    </div>
+    <div class="cell corgi-special">
+      <div class="frame-area">🗣️</div>
+      <div>bark-1</div>
+      <div class="coord">[2, 1]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrS-1</div>
+      <div class="coord">[3, 1]</div>
+    </div>
+    <div class="cell corgi-special">
+      <div class="frame-area">🗣️</div>
+      <div>bark-2</div>
+      <div class="coord">[4, 1]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>SE-1</div>
+      <div class="coord">[5, 1]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>SE-2</div>
+      <div class="coord">[6, 1]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrS-2</div>
+      <div class="coord">[7, 1]</div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="grid-row">
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>N-1</div>
+      <div class="coord">[0, 2]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>N-2</div>
+      <div class="coord">[1, 2]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrE-1</div>
+      <div class="coord">[2, 2]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🧱</div>
+      <div>scrE-2</div>
+      <div class="coord">[3, 2]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>W-1</div>
+      <div class="coord">[4, 2]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>W-2</div>
+      <div class="coord">[5, 2]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🥱</div>
+      <div>tired</div>
+      <div class="coord">[6, 2]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🐕</div>
+      <div>idle</div>
+      <div class="coord">[7, 2]</div>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="grid-row">
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>NE-1</div>
+      <div class="coord">[0, 3]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>NE-2</div>
+      <div class="coord">[1, 3]</div>
+    </div>
+    <div class="cell corgi-special">
+      <div class="frame-area">🐕‍🦺</div>
+      <div>wag-1</div>
+      <div class="coord">[2, 3]</div>
+    </div>
+    <div class="cell corgi-special">
+      <div class="frame-area">🐕‍🦺</div>
+      <div>wag-2</div>
+      <div class="coord">[3, 3]</div>
+    </div>
+    <div class="cell corgi-special">
+      <div class="frame-area">🙏</div>
+      <div>beg-1</div>
+      <div class="coord">[4, 3]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>SW-1</div>
+      <div class="coord">[5, 3]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>S-1</div>
+      <div class="coord">[6, 3]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">❗</div>
+      <div>alert</div>
+      <div class="coord">[7, 3]</div>
+    </div>
+  </div>
+
+  <!-- Row 4 -->
+  <div class="grid-row">
+    <div class="cell empty">
+      <div class="frame-area">-</div>
+      <div>(empty)</div>
+      <div class="coord">[0, 4]</div>
+    </div>
+    <div class="cell empty">
+      <div class="frame-area">-</div>
+      <div>(empty)</div>
+      <div class="coord">[1, 4]</div>
+    </div>
+    <div class="cell corgi-special">
+      <div class="frame-area">🐕‍🦺</div>
+      <div>wag-3</div>
+      <div class="coord">[2, 4]</div>
+    </div>
+    <div class="cell corgi-special">
+      <div class="frame-area">🙏</div>
+      <div>beg-2</div>
+      <div class="coord">[3, 4]</div>
+    </div>
+    <div class="cell idle-anim">
+      <div class="frame-area">🐾</div>
+      <div>scrSelf-3</div>
+      <div class="coord">[4, 4]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>SW-2</div>
+      <div class="coord">[5, 4]</div>
+    </div>
+    <div class="cell move">
+      <div class="frame-area">🐕</div>
+      <div>S-2</div>
+      <div class="coord">[6, 4]</div>
+    </div>
+    <div class="cell empty">
+      <div class="frame-area">-</div>
+      <div>(empty)</div>
+      <div class="coord">[7, 4]</div>
+    </div>
+  </div>
+</div>
+
+<h2>Animation States</h2>
+
+<table>
+  <tr>
+    <th>State</th>
+    <th>Frames</th>
+    <th>Description</th>
+  </tr>
+  <tr><td colspan="3" style="color:#f5a623; font-weight:bold;">Movement</td></tr>
+  <tr><td>N, NE, E, SE, S, SW, W, NW</td><td>2</td><td>Running animation in 8 directions. Short-legged trotting motion.</td></tr>
+  <tr><td colspan="3" style="color:#f5a623; font-weight:bold;">Idle</td></tr>
+  <tr><td>idle</td><td>1</td><td>Sitting and facing forward.</td></tr>
+  <tr><td>alert</td><td>1</td><td>Noticed the mouse moved! Ears perk up.</td></tr>
+  <tr><td>tired</td><td>1</td><td>Yawning. Getting sleepy.</td></tr>
+  <tr><td>sleeping</td><td>2</td><td>Lying down asleep. Zzz...</td></tr>
+  <tr><td>scratchSelf</td><td>3</td><td>Scratching itself with hind leg.</td></tr>
+  <tr><td>scratchWallN/S/E/W</td><td>2</td><td>Scratching the wall at the screen edge.</td></tr>
+  <tr><td colspan="3" style="color:#4caf50; font-weight:bold;">Corgi Special</td></tr>
+  <tr><td>wagTail</td><td>3</td><td>Wagging tail happily.</td></tr>
+  <tr><td>beg</td><td>2</td><td>Raising front paws to beg. Please!</td></tr>
+  <tr><td>bark</td><td>2</td><td>Woof! Mouth opens and closes.</td></tr>
+</table>
+
+<h2>Drawing Tips</h2>
+<div class="info">
+  <ul>
+    <li>Each frame is <strong>32x32px</strong>. Pixel art tools recommended (Aseprite, Piskel, Pixilart, etc.).</li>
+    <li>Corgi features: <strong>short legs, long body, big ears, fluffy butt</strong></li>
+    <li>Side views (E/W) show off the long body. Front view (S) works well as a sitting pose.</li>
+    <li>Background must be <strong>transparent</strong>.</li>
+    <li>Combine all frames into a single PNG and save as <code>corgi.png</code>.</li>
+    <li>Position for <code>[col, row]</code> = <code>col * 32</code>px from left, <code>row * 32</code>px from top</li>
+  </ul>
+</div>
+
+</body>
+</html>
